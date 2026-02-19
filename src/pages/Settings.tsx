@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,14 +14,9 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-    CardFooter,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-    MessageSquare,
-    Save,
-    Copy
-} from "lucide-react";
+import { Copy } from "lucide-react";
 import { useCompany } from "@/contexts/CompanyContext";
 import { ProfessionalsTab } from "@/components/settings/agenda/ProfessionalsTab";
 import { ServicesTab } from "@/components/settings/agenda/ServicesTab";
@@ -28,6 +24,8 @@ import { AvailabilityTab } from "@/components/settings/agenda/AvailabilityTab";
 
 export default function Settings() {
     const { companyId, companyName } = useCompany();
+    const [searchParams] = useSearchParams();
+    const activeTab = searchParams.get("tab") || "company";
     const [loading, setLoading] = useState(false);
     const [settings, setSettings] = useState<SettingsType>({
         id: "",
@@ -98,11 +96,12 @@ export default function Settings() {
                 </Button>
             }
         >
-            <Tabs defaultValue="company" className="w-full">
+            <Tabs value={activeTab} className="w-full">
                 <TabsList className="mb-4">
                     <TabsTrigger value="company">Empresa</TabsTrigger>
                     <TabsTrigger value="messages">Mensagens WhatsApp</TabsTrigger>
                     <TabsTrigger value="automation">Automação & API</TabsTrigger>
+                    <TabsTrigger value="agenda">📅 Agenda</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="company">
