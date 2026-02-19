@@ -104,14 +104,6 @@ export function SupportModal({ open, onOpenChange }: SupportModalProps) {
             setPriority("normal");
             fetchMessages();
             onOpenChange(false);
-
-            // Create notification for admin (optional here, could be trigger)
-            // But let's create it manually to be safe
-            await supabase.from("notifications").insert({
-                // company_id: admin_company_id? Admin doesn't have company_id usually.
-                // Admin notifications are trickier. Usually we don't insert for admin directly via client.
-                // We'll rely on Admin viewing the support page.
-            });
         }
         setSending(false);
     }

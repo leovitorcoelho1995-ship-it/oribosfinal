@@ -30,7 +30,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { Loader2, Plus, Trash2, CalendarOff } from "lucide-react";
-import { Professional, Availability, AvailabilityBlock } from "@/types";
+import type { Professional, Availability, AvailabilityBlock } from "@/types";
 import { ptBR } from "date-fns/locale";
 import { format } from "date-fns";
 

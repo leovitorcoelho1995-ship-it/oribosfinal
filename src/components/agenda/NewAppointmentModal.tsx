@@ -22,7 +22,7 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { toast } from "sonner";
 import { Loader2, ArrowRight, ArrowLeft, Check, Clock } from "lucide-react";
-import { Professional, Service, Client } from "@/types";
+import type { Professional, Service, Client } from "@/types";
 import { useCompany } from "@/contexts/CompanyContext";
 import { supabase } from "@/lib/supabase";
 import { ScrollArea } from "@/components/ui/scroll-area";

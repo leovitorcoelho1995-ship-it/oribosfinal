@@ -3,8 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "./AuthContext";
 import { useCompany } from "./CompanyContext";
 import { toast } from "sonner";
-import { Notification } from "@/types";
-import bellSound from "@/assets/sounds/notification.mp3"; // We'll need to check if this exists or handle it
+import type { Notification } from "@/types";
 
 interface NotificationContextType {
     notifications: Notification[];

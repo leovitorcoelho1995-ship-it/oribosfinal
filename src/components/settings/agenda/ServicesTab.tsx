@@ -23,7 +23,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { Loader2, Plus, Pencil, Trash2 } from "lucide-react";
-import { Service } from "@/types";
+import type { Service } from "@/types";
 
 export function ServicesTab() {
     const { companyId } = useCompany();

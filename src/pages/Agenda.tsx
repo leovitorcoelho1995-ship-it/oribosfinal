@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import {
     format,
@@ -206,8 +206,8 @@ export default function Agenda() {
 
                     {/* Time Rows */}
                     {hours.map(hour => (
-                        <>
-                            <div key={hour} className="p-2 text-xs text-muted-foreground text-center border-r -mt-2.5 bg-background">
+                        <Fragment key={hour}>
+                            <div className="p-2 text-xs text-muted-foreground text-center border-r -mt-2.5 bg-background">
                                 {hour}:00
                             </div>
                             {days.map(d => {
@@ -232,7 +232,7 @@ export default function Agenda() {
                                     </div>
                                 );
                             })}
-                        </>
+                        </Fragment>
                     ))}
                 </div>
             </ScrollArea>

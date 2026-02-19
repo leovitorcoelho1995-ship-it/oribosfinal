@@ -25,7 +25,7 @@ import { Switch } from "@/components/ui/switch"; // Assuming we have or use Chec
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { Loader2, Plus, Pencil, Trash2 } from "lucide-react";
-import { Professional } from "@/types";
+import type { Professional } from "@/types";
 
 export function ProfessionalsTab() {
     const { companyId } = useCompany();

@@ -22,6 +22,9 @@ import {
     Copy
 } from "lucide-react";
 import { useCompany } from "@/contexts/CompanyContext";
+import { ProfessionalsTab } from "@/components/settings/agenda/ProfessionalsTab";
+import { ServicesTab } from "@/components/settings/agenda/ServicesTab";
+import { AvailabilityTab } from "@/components/settings/agenda/AvailabilityTab";
 
 export default function Settings() {
     const { companyId, companyName } = useCompany();
@@ -51,7 +54,7 @@ export default function Settings() {
             .from("settings")
             .select("*")
             .eq("company_id", companyId!)
-            .single();
+            .maybeSingle();
         if (data) {
             setSettings(data);
         }

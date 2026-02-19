@@ -20,7 +20,6 @@ import HealthDashboard from "./pages/admin/Health";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import Welcome from "./pages/Welcome";
 import { OnboardingGuard } from "./components/auth/OnboardingGuard";
-import { AppLayout } from "./components/layout/AppLayout";
 
 function ProtectedApp() {
   return (
@@ -35,49 +34,47 @@ function ProtectedApp() {
                 <Route
                   path="/*"
                   element={
-                    <AppLayout>
-                      <Routes>
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="/clients" element={<Clients />} />
-                        <Route path="/agenda" element={<Agenda />} />
-                        <Route path="/leads" element={<Leads />} />
-                        <Route path="/financial" element={<Financial />} />
-                        <Route path="/transactions" element={<Transactions />} />
-                        <Route path="/settings" element={<Settings />} />
-                        <Route
-                          path="/admin/clients"
-                          element={
-                            <AdminGuard>
-                              <AdminClients />
-                            </AdminGuard>
-                          }
-                        />
-                        <Route
-                          path="/admin/metrics"
-                          element={
-                            <AdminGuard>
-                              <AdminMetrics />
-                            </AdminGuard>
-                          }
-                        />
-                        <Route
-                          path="/admin/support"
-                          element={
-                            <AdminGuard>
-                              <AdminSupport />
-                            </AdminGuard>
-                          }
-                        />
-                        <Route
-                          path="/admin/health"
-                          element={
-                            <AdminGuard>
-                              <HealthDashboard />
-                            </AdminGuard>
-                          }
-                        />
-                      </Routes>
-                    </AppLayout>
+                    <Routes>
+                      <Route path="/" element={<Dashboard />} />
+                      <Route path="/clients" element={<Clients />} />
+                      <Route path="/agenda" element={<Agenda />} />
+                      <Route path="/leads" element={<Leads />} />
+                      <Route path="/financial" element={<Financial />} />
+                      <Route path="/transactions" element={<Transactions />} />
+                      <Route path="/settings" element={<Settings />} />
+                      <Route
+                        path="/admin/clients"
+                        element={
+                          <AdminGuard>
+                            <AdminClients />
+                          </AdminGuard>
+                        }
+                      />
+                      <Route
+                        path="/admin/metrics"
+                        element={
+                          <AdminGuard>
+                            <AdminMetrics />
+                          </AdminGuard>
+                        }
+                      />
+                      <Route
+                        path="/admin/support"
+                        element={
+                          <AdminGuard>
+                            <AdminSupport />
+                          </AdminGuard>
+                        }
+                      />
+                      <Route
+                        path="/admin/health"
+                        element={
+                          <AdminGuard>
+                            <HealthDashboard />
+                          </AdminGuard>
+                        }
+                      />
+                    </Routes>
                   }
                 />
               </Routes>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
     LayoutDashboard,
@@ -18,6 +19,16 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useAdmin } from "@/contexts/AdminContext";
 import { useCompany } from "@/contexts/CompanyContext";
 import { Button } from "@/components/ui/button";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/", count: null },
@@ -38,6 +49,7 @@ export function Sidebar({ onSupportClick }: SidebarProps) {
     const { signOut, user } = useAuth();
     const { isAdmin, impersonating } = useAdmin();
     const { companyName } = useCompany();
+    const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
     return (
         <aside className="hidden md:flex flex-col w-[360px] h-screen bg-white border-r border-border shrink-0">
@@ -45,9 +57,9 @@ export function Sidebar({ onSupportClick }: SidebarProps) {
             <div className="h-[60px] bg-primary flex items-center justify-between px-4 shrink-0 text-white">
                 <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
-                        <span className="font-bold text-lg">A</span>
+                        <span className="font-bold text-lg">O</span>
                     </div>
-                    <span className="font-semibold text-lg tracking-tight">AutoGestão</span>
+                    <span className="font-semibold text-lg tracking-tight">Oribos Gestão</span>
                 </div>
                 {impersonating && (
                     <span className="text-xs bg-white/20 px-2 py-0.5 rounded text-white font-medium">
@@ -197,12 +209,32 @@ export function Sidebar({ onSupportClick }: SidebarProps) {
                 <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => signOut()}
+                    onClick={() => setShowLogoutDialog(true)}
                     className="text-muted-foreground hover:text-destructive transition-colors"
                 >
                     <LogOut className="h-5 w-5" />
                 </Button>
             </div>
+
+            <AlertDialog open={showLogoutDialog} onOpenChange={setShowLogoutDialog}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Deseja sair?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Você será desconectado da sua conta. Deseja continuar?
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={() => signOut()}
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                            Sair
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </aside>
     );
 }

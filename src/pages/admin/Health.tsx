@@ -24,6 +24,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { LogDrawer } from "@/components/admin/LogDrawer";
 import { toast } from "sonner";
+import { AppLayout } from "@/components/layout/AppLayout";
 
 interface CompanyHealth {
     id: string;
@@ -112,114 +113,116 @@ export default function HealthDashboard() {
         c.id.includes(searchTerm)
     );
 
-    if (loading) return <div className="flex justify-center p-8"><Loader2 className="animate-spin" /></div>;
+    if (loading) return <AppLayout title="Saúde do Sistema"><div className="flex justify-center p-8"><Loader2 className="animate-spin" /></div></AppLayout>;
 
     return (
-        <div className="p-6 space-y-6">
-            <div className="flex justify-between items-center">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-[#5B2D8E]">Saúde do Sistema</h1>
-                    <p className="text-muted-foreground">Monitoramento de status e erros dos clientes.</p>
+        <AppLayout title="Saúde do Sistema">
+            <div className="space-y-6">
+                <div className="flex justify-between items-center">
+                    <div>
+                        <h1 className="text-3xl font-bold tracking-tight text-[#5B2D8E]">Saúde do Sistema</h1>
+                        <p className="text-muted-foreground">Monitoramento de status e erros dos clientes.</p>
+                    </div>
+                    {/* Global Logs Button */}
+                    <Button variant="outline" onClick={() => handleViewLogs("global", "Sistema Global")}>
+                        <ServerCrash className="mr-2 h-4 w-4" />
+                        Logs Globais (Sem Empresa)
+                    </Button>
                 </div>
-                {/* Global Logs Button */}
-                <Button variant="outline" onClick={() => handleViewLogs("global", "Sistema Global")}>
-                    <ServerCrash className="mr-2 h-4 w-4" />
-                    Logs Globais (Sem Empresa)
-                </Button>
-            </div>
 
-            <div className="flex items-center space-x-2">
-                <Search className="h-4 w-4 text-muted-foreground" />
-                <Input
-                    placeholder="Buscar empresa..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="max-w-sm"
+                <div className="flex items-center space-x-2">
+                    <Search className="h-4 w-4 text-muted-foreground" />
+                    <Input
+                        placeholder="Buscar empresa..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="max-w-sm"
+                    />
+                </div>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Clientes Ativos</CardTitle>
+                        <CardDescription>Visão geral de acesso e integridade.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Empresa</TableHead>
+                                    <TableHead>Status</TableHead>
+                                    <TableHead>Último Acesso</TableHead>
+                                    <TableHead>Erros (24h)</TableHead>
+                                    <TableHead className="text-right">Ações</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {filteredCompanies.map((company) => (
+                                    <TableRow key={company.id}>
+                                        <TableCell className="font-medium">
+                                            <div className="flex flex-col">
+                                                <span>{company.company_name}</span>
+                                                <span className="text-xs text-muted-foreground font-mono">{company.id.slice(0, 8)}...</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex gap-2">
+                                                {company.onboarding_completed ?
+                                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">Onboarded</Badge> :
+                                                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">Pendente</Badge>
+                                                }
+                                                {company.active_subscription ?
+                                                    <Badge variant="default" className="bg-[#5B2D8E]">Premium</Badge> :
+                                                    <Badge variant="secondary">Free</Badge>
+                                                }
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            {company.last_login_at ?
+                                                format(new Date(company.last_login_at), "dd/MM/yyyy HH:mm", { locale: ptBR }) :
+                                                "Nunca"}
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center gap-2">
+                                                {/* We don't have real count yet, simulate or leave empty */}
+                                                <div className={`h-2 w-2 rounded-full ${company.error_count > 0 ? 'bg-red-500' : 'bg-green-500'}`} />
+                                                <span className="text-sm">{company.error_count > 0 ? `${company.error_count} erros` : "Saudável"}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            <div className="flex justify-end gap-2">
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() => handleViewLogs(company.id, company.company_name)}
+                                                    title="Ver Logs"
+                                                >
+                                                    <Activity className="h-4 w-4" />
+                                                </Button>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={() => startImpersonation(company.id, company.company_name)}
+                                                    title="Acessar Painel"
+                                                >
+                                                    <LogOut className="h-4 w-4 rotate-180" /> {/* Simulate enter icon */}
+                                                </Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
+
+                <LogDrawer
+                    open={logDrawerOpen}
+                    onOpenChange={setLogDrawerOpen}
+                    logs={selectedCompanyLogs}
+                    companyName={selectedCompanyName}
                 />
             </div>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Clientes Ativos</CardTitle>
-                    <CardDescription>Visão geral de acesso e integridade.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Empresa</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead>Último Acesso</TableHead>
-                                <TableHead>Erros (24h)</TableHead>
-                                <TableHead className="text-right">Ações</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {filteredCompanies.map((company) => (
-                                <TableRow key={company.id}>
-                                    <TableCell className="font-medium">
-                                        <div className="flex flex-col">
-                                            <span>{company.company_name}</span>
-                                            <span className="text-xs text-muted-foreground font-mono">{company.id.slice(0, 8)}...</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="flex gap-2">
-                                            {company.onboarding_completed ?
-                                                <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">Onboarded</Badge> :
-                                                <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">Pendente</Badge>
-                                            }
-                                            {company.active_subscription ?
-                                                <Badge variant="default" className="bg-[#5B2D8E]">Premium</Badge> :
-                                                <Badge variant="secondary">Free</Badge>
-                                            }
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        {company.last_login_at ?
-                                            format(new Date(company.last_login_at), "dd/MM/yyyy HH:mm", { locale: ptBR }) :
-                                            "Nunca"}
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="flex items-center gap-2">
-                                            {/* We don't have real count yet, simulate or leave empty */}
-                                            <div className={`h-2 w-2 rounded-full ${company.error_count > 0 ? 'bg-red-500' : 'bg-green-500'}`} />
-                                            <span className="text-sm">{company.error_count > 0 ? `${company.error_count} erros` : "Saudável"}</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        <div className="flex justify-end gap-2">
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() => handleViewLogs(company.id, company.company_name)}
-                                                title="Ver Logs"
-                                            >
-                                                <Activity className="h-4 w-4" />
-                                            </Button>
-                                            <Button
-                                                variant="ghost"
-                                                size="sm"
-                                                onClick={() => startImpersonation(company.id, company.company_name)}
-                                                title="Acessar Painel"
-                                            >
-                                                <LogOut className="h-4 w-4 rotate-180" /> {/* Simulate enter icon */}
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
-
-            <LogDrawer
-                open={logDrawerOpen}
-                onOpenChange={setLogDrawerOpen}
-                logs={selectedCompanyLogs}
-                companyName={selectedCompanyName}
-            />
-        </div>
+        </AppLayout>
     );
 }

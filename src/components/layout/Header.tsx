@@ -60,7 +60,7 @@ export function Header({ title, onMenuClick, children, headerAction }: HeaderPro
                     </Button>
 
                     {isOpen && (
-                        <div className="absolute right-0 top-full mt-2 w-80 md:w-96 bg-white border rounded-md shadow-lg z-50 overflow-hidden text-foreground">
+                        <div className="absolute right-0 top-full mt-2 w-80 md:w-96 bg-white border rounded-md shadow-lg z-[100] overflow-hidden text-foreground">
                             <div className="p-3 border-b flex justify-between items-center bg-muted/50">
                                 <h3 className="font-semibold text-sm">Notificações ({unreadCount})</h3>
                                 {unreadCount > 0 && (
