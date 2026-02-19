@@ -25,7 +25,7 @@ import { AvailabilityTab } from "@/components/settings/agenda/AvailabilityTab";
 export default function Settings() {
     const { companyId, companyName } = useCompany();
     const [searchParams] = useSearchParams();
-    const activeTab = searchParams.get("tab") || "company";
+    const [activeTab, setActiveTab] = useState(searchParams.get("tab") || "company");
     const [loading, setLoading] = useState(false);
     const [settings, setSettings] = useState<SettingsType>({
         id: "",
@@ -96,7 +96,7 @@ export default function Settings() {
                 </Button>
             }
         >
-            <Tabs value={activeTab} className="w-full">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <TabsList className="mb-4">
                     <TabsTrigger value="company">Empresa</TabsTrigger>
                     <TabsTrigger value="messages">Mensagens WhatsApp</TabsTrigger>
