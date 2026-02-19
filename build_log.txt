@@ -1,0 +1,25 @@
+﻿src/components/agenda/AppointmentModal.tsx(6,5): error TS6133: 'DialogDescription' is declared but its value is never read.
+src/components/agenda/AppointmentModal.tsx(22,10): error TS1484: 'Appointment' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/agenda/AppointmentModal.tsx(22,23): error TS1484: 'Client' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/clients/ClientModal.tsx(20,1): error TS6133: 'Textarea' is declared but its value is never read.
+src/components/clients/ClientModal.tsx(23,10): error TS1484: 'Client' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/financial/PaymentModal.tsx(21,10): error TS1484: 'Payment' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/financial/PaymentModal.tsx(21,19): error TS1484: 'Client' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/components/leads/LeadModal.tsx(21,10): error TS1484: 'Lead' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Agenda.tsx(6,10): error TS1484: 'Appointment' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Agenda.tsx(20,12): error TS6133: 'loading' is declared but its value is never read.
+src/pages/Clients.tsx(6,10): error TS1484: 'Client' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Dashboard.tsx(6,10): error TS1484: 'Appointment' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Dashboard.tsx(6,23): error TS1484: 'Lead' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Dashboard.tsx(6,29): error TS1484: 'Payment' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Dashboard.tsx(7,1): error TS6133: 'format' is declared but its value is never read.
+src/pages/Dashboard.tsx(8,1): error TS6133: 'ptBR' is declared but its value is never read.
+src/pages/Dashboard.tsx(15,12): error TS6133: 'overduePayments' is declared but its value is never read.
+src/pages/Dashboard.tsx(22,12): error TS6133: 'loading' is declared but its value is never read.
+src/pages/Financial.tsx(6,10): error TS1484: 'Payment' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Leads.tsx(6,10): error TS1484: 'Lead' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Leads.tsx(10,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/pages/Leads.tsx(10,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/pages/Leads.tsx(22,12): error TS6133: 'loading' is declared but its value is never read.
+src/pages/Settings.tsx(9,10): error TS1484: 'Settings' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Settings.tsx(46,36): error TS6133: 'error' is declared but its value is never read.

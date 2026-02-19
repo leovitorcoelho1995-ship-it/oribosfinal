@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 210 14% 95%;
+    /* #F0F2F5 */
+    --foreground: 202 32% 10%;
+    /* #111B21 */
+
+    --card: 0 0% 100%;
+    /* #FFFFFF */
+    --card-foreground: 202 32% 10%;
+    /* #111B21 */
+
+    --popover: 0 0% 100%;
+    /* #FFFFFF */
+    --popover-foreground: 202 32% 10%;
+    /* #111B21 */
+
+    --primary: 268 52% 37%;
+    /* #5B2D8E (Roxo Oribos) */
+    --primary-foreground: 0 0% 100%;
+    /* #FFFFFF */
+
+    --secondary: 258 100% 97%;
+    /* #F3EEFF (Primary Pale) */
+    --secondary-foreground: 268 52% 37%;
+    /* #5B2D8E */
+
+    --muted: 210 17% 98%;
+    /* #F8F9FA (Surface Secondary) */
+    --muted-foreground: 203 12% 45%;
+    /* #667781 */
+
+    --accent: 210 14% 96%;
+    /* #F5F6F6 (Hover State) */
+    --accent-foreground: 202 32% 10%;
+    /* #111B21 */
+
+    --destructive: 4 100% 59%;
+    /* #FF3B30 */
+    --destructive-foreground: 0 0% 100%;
+    /* #FFFFFF */
+
+    --whatsapp-green: 142 70% 49%;
+    /* #25D366 */
+    --whatsapp-green-hover: 173 76% 31%;
+    /* #128C7E */
+    --warning: 35 100% 50%;
+    /* #FF9500 */
+
+    --border: 210 14% 92%;
+    /* #E9EDEF */
+    --input: 210 14% 92%;
+    /* #E9EDEF */
+    --ring: 268 52% 37%;
+    /* #5B2D8E */
+
+    --radius: 0.5rem;
+
+    /* Sidebar specific */
+    --sidebar-background: 0 0% 100%;
+    /* #FFFFFF */
+    --sidebar-foreground: 202 32% 10%;
+    /* #111B21 */
+    --sidebar-primary: 268 52% 37%;
+    /* #5B2D8E */
+    --sidebar-primary-foreground: 0 0% 100%;
+    /* #FFFFFF */
+    --sidebar-accent: 258 100% 97%;
+    /* #F3EEFF (Primary Pale) */
+    --sidebar-accent-foreground: 268 52% 37%;
+    /* #5B2D8E */
+    --sidebar-border: 210 14% 92%;
+    /* #E9EDEF */
+    --sidebar-ring: 268 52% 37%;
+    /* #5B2D8E */
+  }
+
+  .dark {
+    /* Dark mode not explicitly requested but maintaining structure if needed */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    /* ... keeping defaults for now as user asked for specific light mode palette */
+    /* If user wants dark mode later, we can map WhatsApp Web Dark colors */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
